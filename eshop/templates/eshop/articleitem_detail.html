@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load comments i18n cache %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block description %}
+    {% block title %}{% block keywords %}{{ item.name }}. Отзывы и комментарии.{% endblock %} :: Купить в {{ block.super }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div id="breadcrumbs">
+        <a href="/">Главная</a>
+        {% for node in item.main_category.get_ancestors %}
+	    » <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        {% endfor %}
+	» <a href="{{ item.main_category.get_absolute_url }}">{{ item.main_category.name }}</a>
+	</div>
+    <h2>{{ item.name|upper }}</h2>
+    <div id="left_column">
+        <ul id="production">
+        <form id="search" action="{% url search %}" method="get"><span><input type="text" name="q" class="search rounded" placeholder="Искать..."></span></form>
+        <h3>Бренды</h3>
+            {% for category in root_categories %}
+                <li><a href="{{ category.get_absolute_url }}" class="name">{{ category.name|upper }}</a></li>
+                {% comment %}
+                    {% for child in category.children.all %}
+                            <li>
+                            <a class="submenu" href="{{ child.get_absolute_url }}">{{ child.name }}</a>
+                            </li>
+                        {% endfor %}
+                {% endcomment %}
+            {% endfor %}
+        </ul>
+    </div>
+<div id="right_column">
+	<div id="item">
+			<div id="image">
+                <a href="{{ item.image.url }}" rel="lightbox[{{ item.name }}]" title="{{ item.name }}"><img src="{{ item.image.url }}" alt="{{ item.name }}"></a>
+			{% for img in item.articleimage_set.all %}
+			    <a href="{{ img.image.url }}" rel="lightbox[{{ item.name }}]" title="{{ item.name }}"><img src="{{ img.image.url }}" alt="{{ item.name }}"></a>
+			{% endfor %}
+			</div>
+            <span class="price">Цена: {{ item.price|floatformat }} грн.</span>
+            <form>
+				<input type="text" name="{{ item.pk }}" id="{{ item.pk }}_input" size=4 value="1">
+				<a id="{{ item.pk }}" href="#" onclick="addToCart('{{ item.pk }}');return false;">В корзину</a>
+            </form>
+			<p>На складе:{% if item.present %} есть {% else %} нет {% endif %}</p>
+            <p>Артикул: {{ item.kod_tovara }}</p>
+	{{ item.description|safe }}
+		<br>
+	</div>
+	{% with item.main_category.get_children_articles as articles %}
+		{% if articles|length > 1 %}
+		<div id="other_items_list"><h4>Похожие товары</h4>
+			<ul>
+			{% for article in articles %}
+				{% if article.id != item.id %}
+				<li><a href="{{ article.get_absolute_url }}"><span>{{ article.name }}</span><img src="{{ article.image.url }}"></a><p>{{ article.price }} грн.</p></li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	{% endwith %}
+	{% comment %}
+	<div id="article-comments">
+		<h2>{{ item.name|capfirst }}. Отзывы покупателей.</h2>
+		{% render_comment_form for item %}		
+		{% render_comment_list for item %}
+	</div>
+	{% endcomment %}
+</div>
+<script type="text/javascript">
+    function addToCart(id){
+        var item = $('#' + id + '_input');
+        count = "" + item.val();
+        url = "{% url add_to_cart item.pk 1 %}";
+        url = url.substring(0, url.length-2) + count + "/";
+        $.ajax({
+                url: url,
+                type: 'GET',
+                datatype: 'json',
+                error: function(xhr, status, errorThrown) {
+                alert(errorThrown+'\n'+status+'\n'+xhr.statusText+'\n'+url);
+            },
+            success: function(data) {
+                $('#item-add-box').removeClass('item_add_hidden');
+                $('#item-add-box').addClass('item_add_visible');
+                setTimeout(function(){
+                    $('#item-add-box').addClass('item_add_hidden');
+                    $('#item-add-box').removeClass('item_add_visible');
+                    }, 2500);
+                $('#cart-quantity').html(data['total_count']);
+                $('#cart-price').html(data['total_price']);
+            }
+        });
+    }
+</script>
+{% endblock %}

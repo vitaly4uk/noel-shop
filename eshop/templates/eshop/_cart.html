@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="menu_center_produkt">
+	<h2>Оформить заказ</h2>
+	<table id="artile-table-list">
+		<form name="cart" method="post" action="">
+			{% csrf_token %}
+			<tr>
+				<th>{% trans "name"|capfirst %}<a></th>
+				<th>{% trans "price"|capfirst %}</th>
+				<th>{% trans "quantity"|capfirst %}</th>
+				<th>{% trans "total"|capfirst %}</th>
+				<th>&nbsp;</th>
+			</tr>
+			{% for item in cart %}
+			<tr class="{% cycle regular,alt %}">
+				<td>{{ item.item }}</td>
+				<td class="article-small-column">{{ item.get_price }} {% trans "usd" %}</td>
+				<td class="article-small-column"><input name="{{ item.id }}" type="text" value="{{ item.quantity }}" size="8"></td>
+				<td class="article-small-column">{{ item.get_total_price }} {% trans "usd" %}</td>
+                <td class="column-center"><a href="{% url add_to_cart item.item.pk 0 %}">Удалить</a></td>
+			</tr>
+			{% endfor %}
+			<tfoot>
+				<tr>
+					<td colspan="2">{% trans "total"|capfirst %}</td>
+					<td class="article-small-column"><strong>{{ cart.quantity }}</strong></td>
+					<td class="article-small-column"><strong>{{ cart.total_price }}</strong> {% trans "usd" %}</td>
+					<td class="column-center"><input class="submit" type="submit" value="Пересчитать"></td>
+				</tr>
+			</tfoot>			
+	</table>
+		<h2>Контактные данные</h2>
+		<div id="contact_form">			
+                <label for="name">* Фамилия, имя:</label>
+                <input type="text" name="name" id="name" class="validate[required]" size="50" />
+                
+                <label for="email">* Контактный E-mail:</label>
+                <input type="text" name="email" id="email" class="validate[required,custom[email]]" size="50" />
+                
+                <label for="phone">* Контактный телефон:</label>
+                <input type="text" name="phone" id="phone" class="validate[required]" size="50" />
+                
+                <label for="address">Адрес (Страна, населенный пункт, улица, дом, квартира): </label>
+                <input type="text" name="address" id="address" size="50" />
+                
+                <label for="delivery">Способ доставки: </label>
+                    <table id="tb_del">
+                    <th colspan="2">Вариант доставки</th><th>Тариф доставки</th></tr>
+                    <tr><td><input type="radio" name="delivery" value="Автолюкс" id="delivery" class="validate[required]" /></td><td>Автолюкс</td><td>В среднем 3-7% от суммы заказа</td></tr>
+                    <tr><td><input type="radio" name="delivery" value="Деливери" id="delivery" class="validate[required]" /></td><td>Деливери</td><td>В среднем 3-7% от суммы заказа</td></tr>
+                    <tr><td><input type="radio" name="delivery" value="ИнТайм" id="delivery" class="validate[required]" /></td><td>ИнТайм</td><td>В среднем 5-10% от суммы заказа</td></tr>
+                    <tr><td><input type="radio" name="delivery" value="Новая Почта" id="delivery" class="validate[required]" /></td><td>Новая Почта</td><td>В среднем 7-12% от суммы заказа</td></tr>
+                    <tr><td><input type="radio" name="delivery" value="Курьером по Одессе" id="delivery" class="validate[required]" /></td><td>Курьером по Одессе</td><td>30-50 грн.</td></tr>
+                    </table>
+                <label for="pay">Способ оплаты: </label>
+                <table id="tb_del">
+                    <tr><td><input type="radio" name="pay" value="Наложенным платежом (зависит от курьерской службы, в среднем 2% от суммы перевода + плата за оформление)" id="pay" class="validate[required]" /></td><td>Наложенным платежом (зависит от курьерской службы, в среднем 2% от суммы перевода + плата за оформление)</td></tr>
+                    <tr><td><input type="radio" name="pay" value="Перевод на карту ПриватБанк (0,5-1% от суммы перевода)" id="pay" class="validate[required]" /></td><td>Перевод на карту ПриватБанк (0,5-1% от суммы перевода)</td></tr>
+                    <tr><td><input type="radio" name="pay" value="Водителю по факту доставки" id="pay" class="validate[required]" /></td><td>Курьеру по факту доставки</td></tr>
+                    </table>
+                
+                
+                <label for="text">Примечание:</label>
+                <textarea name="text" id="text" rows="5" cols="40"></textarea>
+
+
+                <br />
+                <input type="submit" value="Оформить заказ" class="submit" />
+            </form>
+		</div>
+</div>
+{% endblock %}

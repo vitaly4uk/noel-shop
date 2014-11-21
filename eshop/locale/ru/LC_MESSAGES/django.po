@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Vitaly Omelchuk <vitaly.omelchuk@gmail.com>, 2011
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 13:35+0200\n"
+"PO-Revision-Date: 2011-02-24 10:38+0200\n"
+"Last-Translator: Vitaly Omelchuk <vitaly.omelchuk@gmail.com>\n"
+"Language-Team: ru <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: models.py:24 models.py:53 models.py:124
+#: templates/eshop/articlecategory_detail.html:12 templates/eshop/cart.html:7
+msgid "name"
+msgstr ""
+
+#: models.py:26 models.py:56
+msgid "image"
+msgstr ""
+
+#: models.py:27 models.py:58
+msgid "published"
+msgstr ""
+
+#: models.py:28 models.py:61 models.py:126
+msgid "creation date"
+msgstr "дата создания"
+
+#: models.py:29 models.py:62 models.py:127
+msgid "modification date"
+msgstr "дата изменения"
+
+#: models.py:46
+msgid "category"
+msgstr "категория"
+
+#: models.py:47
+msgid "categories"
+msgstr "категории"
+
+#: models.py:55
+msgid "description"
+msgstr "описание"
+
+#: models.py:57
+msgid "url"
+msgstr ""
+
+#: models.py:59 templates/eshop/articlecategory_detail.html:12
+#: templates/eshop/articleitem_detail.html:11
+msgid "warranty"
+msgstr "гарантия"
+
+#: models.py:60 models.py:110 templates/eshop/articlecategory_detail.html:12
+#: templates/eshop/articleitem_detail.html:10 templates/eshop/cart.html:8
+msgid "price"
+msgstr "цена"
+
+#: models.py:92
+msgid "article"
+msgstr "товар"
+
+#: models.py:93
+msgid "articles"
+msgstr "товары"
+
+#: models.py:98
+msgid "created"
+msgstr "создан"
+
+#: models.py:99
+msgid "not paid"
+msgstr "не оплачен"
+
+#: models.py:100
+msgid "paid"
+msgstr "оплачен"
+
+#: models.py:101
+msgid "delivared"
+msgstr "отгружен"
+
+#: models.py:102
+msgid "closed"
+msgstr "закрыт"
+
+#: models.py:109 templates/eshop/cart.html:9
+msgid "quantity"
+msgstr "количество"
+
+#: models.py:121
+msgid "status"
+msgstr "статус"
+
+#: models.py:123
+msgid "email"
+msgstr ""
+
+#: models.py:125
+msgid "comment"
+msgstr ""
+
+#: models.py:168 models.py:176
+msgid "cart"
+msgstr "заказ"
+
+#: models.py:177
+#, fuzzy
+msgid "carts"
+msgstr "заказы"
+
+#: templates/eshop/articlecategory_detail.html:13
+#: templates/eshop/articlecategory_detail.html:23
+msgid "add to cart"
+msgstr "добавить в корзину"
+
+#: templates/eshop/articleitem_detail.html:17
+msgid "Post"
+msgstr ""
+
+#: templates/eshop/cart.html:10 templates/eshop/cart.html.py:24
+msgid "total"
+msgstr "итого"

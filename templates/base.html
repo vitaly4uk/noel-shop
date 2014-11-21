@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load i18n cache mptt_tags %}
+
+<html>
+    <head>
+		<link href="{{ MEDIA_URL }}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta http-equiv="X-UA-Compatible" content="IE=8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="author" content="Omel4uk Vitaly">
+        <meta name="keywords" content="{% block keywords %}HozClub{% endblock %}">
+        <meta name="description" content="{% block description %}HozClub{% endblock %}">
+        <link href="{{ MEDIA_URL }}css/style.css" type="text/css" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <link href="{{ MEDIA_URL }}css/style_ie8.css" type="text/css" rel="stylesheet">
+        <![endif]-->        
+        <title>{% block title %}HozClub{% endblock %}</title>
+        <script src="{{ MEDIA_URL }}js/jquery-1.7.2.min.js"></script>
+        <script src="{{ MEDIA_URL }}js/button.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/lightbox.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/jquery.bxSlider.min.js" type="text/javascript"></script>		
+                			
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body>
+    {{ constants.yandex_counter|safe }}					
+	<div id="title" class="handbook_prothin">
+    <div id="title_block" {% if request.path != "/" %} class="small_head" {% endif %}>
+        <a href="/"><img src="{{ MEDIA_URL }}img/logo_hozclub.png"></a>
+        <p>067 557 48 77<br>099 141 96 86<br>063 053 05 90</p>
+        <ul>
+            <li>Личный кабинет</li>
+            <li><a href="/eshop/cart">У вас <span id="cart-quantity"></span> товаров
+						<br>На сумму: <span id="cart-price"></span> грн.</li></a>
+            <li>Обратная связь</li>
+        </ul>
+    </div>
+        <ul id="menu" class="handbook_bold">
+            <li><a href="/production/">Продукция</a></li>
+            <li><a href="/news/">Новости</a></li>
+            <li><a href="/usloviaya_sotrudnichestva/">Условия сотрудничества</a></li>
+            <li><a href="/actions/">Акция</a></li>
+            <li><a href="/contacts/">Контакты</a></li>
+            <li><a href="/price/">Прайс-лист</a></li>
+        </ul>
+</div>
+
+
+<div id="content">
+{% block content %}
+{% endblock %}
+</div>
+
+	{{ constants.google_analytics|safe }}
+	<div id="top-link">
+		<a href="#title"><span id="topicon"></span>наверх</a>
+	</div>
+	<span id="item-add-box" class="item_add_hidden">Товар добавлен в корзину!</span>
+
+
+
+<script type="text/javascript">
+$(function(){
+        $('#slider1').bxSlider({ auto: true, pause: 7000, controls: false});
+        $.ajax({
+            url: "/eshop/item/0/addtocart/0/",
+            type: 'GET',
+            datatype: 'json',
+            error: function(xhr, status, errorThrown) {
+            alert(errorThrown+'\n'+status+'\n'+xhr.statusText+'\n'+url);
+            },
+            success: function(data) {
+                $('#cart-quantity').html(data['total_count']);
+                $('#cart-price').html(data['total_price']);
+            }
+        });
+});
+</script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load cache eshop_tags %}
+
+{% block description %}
+    {% block title %}{% block keywords %}{{ category.name }}{% endblock %} :: Купить в {{ block.super }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> » Прайс-лист
+    </div>
+<h2>ПРАЙС-ЛИСТ</h2>
+    <div id="left_column" >
+        <ul id="production">
+            {% for category in root_categories %}
+                <li><a href="{{ category.get_absolute_url }}" class="name">{{ category.name|upper }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="right_column">
+    <dl>
+    <dd><span class="dd_name">Название</span><span class="dd_price">Цена, грн.</span><span class="articul">Артикул</span></dd>
+        {% for category in root_categories|dictsort:"name" %}
+            {% show_category_item category %}
+        {% endfor %}
+    </dl>
+</div>
+
+{% endblock %}

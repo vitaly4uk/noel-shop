@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block content %}
+{% cache 600 news %}
+    <div id="menu_news">
+        <h2>НОВОСТИ</h2> 
+		   <ul>     
+		   {% for news in all_news %}
+			<li> 
+				<p>{{ news.created_date|date:"SHORT_DATE_FORMAT" }}</p>
+				{% if news.image %}<a href="{{ news.get_absolute_url }}"><img src="{{ news.image }}"></a>{% endif %}
+				<a href="{{ news.get_absolute_url }}"><span>{{ news.name|upper }}</span></a>
+				<h3>{{ news.headline }} ...	</h3>
+			</li>
+			{% endfor %}
+		   </ul>    
+    </div>
+{% endcache %}
+{% endblock %}

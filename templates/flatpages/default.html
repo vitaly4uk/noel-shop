@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load comments i18n %}
+
+{% block title %}{{ flatpage.title }} :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<div id="menu_center_produkt">
+	<h2>{{ flatpage.title|upper }}</h2>
+		<div class="main">{{ flatpage.content }}
+		<br></div>
+</div>
+{% if flatpage.enable_comments %}
+{% get_comment_form for flatpage as form %}
+<form id="comments-form" action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+        <tr><td colspan="2"><input type="submit" value="{% trans "Post" %}"></td></tr>
+        <tr><td colspan="2"><input type="hidden" name="next" value="{{ flatpage.get_absolute_url }}"></td></tr>
+    </table>
+</form>
+<section id="item-comments">
+    {% render_comment_list for flatpage %}
+</section>
+{% endif %}
+{% endblock %}

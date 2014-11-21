@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block description %}
+    {% block title %}{% block keywords %}{{ lookup_text }}{% endblock %} :: {{ block.super }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<div id="menu_center_produkt">
+<h2>РЕЗУЛЬТАТЫ ПОИСКА</h2>
+	<div class="main">
+	<p class="description">Поиск по названию "{{ lookup_text }}":</p>
+	{% for article in object_list %}
+    <p id="search_result"><a href="{{ article.get_absolute_url }}"><img src="{% url eshop_show_item_thumb article.id 50 %}">{{ article.name }}</a><span class="search_price">{{ article.price }} грн.</span></p>
+    {% endfor %}
+    <br>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+            $("#article-table-list").delegate("a.tocart-link", "click", function(){
+                var object_id = parseInt($(this).attr("id"));
+                var url = $(this).attr("href");
+                var quantity = $("input[name=quantity" + object_id + "]").val();
+                url = url.slice(0, url.length - 2) + quantity + "/";
+                $.get(url);
+                return false;
+                });
+            });
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block content %}
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> » Акционные товары
+    </div>
+    <h2>Акционные товары</h2>
+    <div id="left_column">
+        <ul id="production">
+        <form id="search" action="{% url search %}" method="get"><span><input type="text" name="q" class="search rounded" placeholder="Искать..."></span></form>
+        <h3>Бренды</h3>
+            {% for category in root_categories %}
+                <li><a href="{{ category.get_absolute_url }}" class="name">{{ category.name|upper }}</a></li>
+                {% comment %}
+                {% for child in category.children.all %}
+                            <li>
+                            <a class="submenu" href="{{ child.get_absolute_url }}">{{ child.name }}</a>
+                            </li>
+                        {% endfor %}
+                {% endcomment %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="right_column" class="production">
+        <ul id="brands">
+            {% for article in slider_action %}
+			{% if article.published %}
+			<li {% if article.present %} {% else %} class="nosklad" {% endif %}>
+				<a href="{{ article.get_absolute_url }}"><p>{{ article.name|upper }}</p>
+				<div>{% if article.image %}
+					<img src="{% url eshop_show_item_thumb article.id 200 %}" alt="{{ article.name }}">
+				{% endif %}</div></a>
+                {% comment %}
+                {% if article.image %}
+                    <div id="fullimage">
+                        {{ article.name }}
+                        <img src="{{ article.image.url }}" alt="{{ article.name }}">
+                    </div>
+                {% endif %}
+                {% endcomment %}
+                Артикул: {{ article.kod_tovara }}
+                {% if article.present %}
+                    <p class="old_price">{{ article.old_price }} грн.</p>
+                    <p>{{ article.price }} грн.</p>
+                <form>
+                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
+                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">В корзину</a>
+                </form>
+                {% else %}
+                    <p>Нет на складе</p>
+                {% endif %}
+			</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+<script type="text/javascript">
+    function addToCart(id){
+        var item = $('#' + id + '_input');
+        count = "" + item.val();
+        url = "/eshop/item/" + id + "/addtocart/" + count + "/";
+        $.ajax({
+                url: url,
+                type: 'GET',
+                datatype: 'json',
+                error: function(xhr, status, errorThrown) {
+                alert(errorThrown+'\n'+status+'\n'+xhr.statusText+'\n'+url);
+            },
+            success: function(data) {
+                $('#item-add-box').removeClass('item_add_hidden');
+                $('#item-add-box').addClass('item_add_visible');
+                setTimeout(function(){
+                    $('#item-add-box').addClass('item_add_hidden');
+                    $('#item-add-box').removeClass('item_add_visible');
+                    }, 2500);
+                $('#cart-quantity').html(data['total_count']);
+                $('#cart-price').html(data['total_price']);
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load comments %}
+<div class="comments">
+	<dl>
+		{% for comment in comment_list %}		
+		<dt>{{ comment.submit_date }} - {{ comment.name }}</dt>
+		<dd><p>{{ comment.comment }}</p></dd>
+		{% endfor %}
+	</dl>
+</div>

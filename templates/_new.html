@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block content %}
+{% cache 600 new %}
+    <div id="menu_center">
+        <h2>НОВИНКИ</h2> 
+		   <ul>     
+		   {% for article in slider_new %}
+			<li> 
+				<a href="{{ article.get_absolute_url }}"><span>{{ article.name|upper }}</span></a>
+				{% if article.image %}
+					<a href="{{ article.get_absolute_url }}"><img src="{% url eshop_show_item_thumb article.id 145 %}"></a>
+					<form>					
+						<input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
+						<a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">В корзину</a>
+					</form>
+					<p>{{ article.price }} грн.</p>
+				{% endif %}
+			</li>
+			{% endfor %}
+		   </ul>    
+    </div>
+{% endcache %}
+<script type="text/javascript">
+    function addToCart(id){
+        var item = $('#' + id + '_input');
+        count = "" + item.val();
+        url = "/eshop/item/" + id + "/addtocart/" + count + "/";
+        $.ajax({
+                url: url,
+                type: 'GET',
+                datatype: 'json',
+                error: function(xhr, status, errorThrown) {
+                alert(errorThrown+'\n'+status+'\n'+xhr.statusText+'\n'+url);
+            },
+            success: function(data) {
+                $('#item-add-box').removeClass('item_add_hidden');
+                $('#item-add-box').addClass('item_add_visible');
+                setTimeout(function(){
+                    $('#item-add-box').addClass('item_add_hidden');
+                    $('#item-add-box').removeClass('item_add_visible');
+                    }, 2500);
+                $('#cart-quantity').html(data['total_count']);
+                $('#cart-price').html(data['total_price']);
+            }
+        });
+    }
+</script>
+{% endblock %}

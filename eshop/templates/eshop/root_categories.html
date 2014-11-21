@@ -1,0 +1,6 @@
+{% load cache %}
+{% cache 600 sidebar selected_category %}
+{% for category in root_categories %}
+<li>{% if category = selected_category %}<strong>{{ category.name }}</strong>{% else %}<a href="{{ category.get_absolute_url }}" >{{ category.name }}</a>{% endif %}</li>
+{% endfor %}
+{% endcache %}

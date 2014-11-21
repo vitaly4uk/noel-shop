@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block content %}
+    <h2>Наши бренды</h2>
+    <div id="right_column" class="production">
+
+        <ul id="brands">
+            {% for category in root_categories %}
+            <li><a href="{{ category.get_absolute_url }}"><div><img src="{% url eshop_show_cat_thumb category.id 200 %}"></div><p>{{ category.name }}</p></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}​

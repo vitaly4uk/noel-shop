@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+        <div id="slider">
+		<div id="slider1">
+			{% for article in slider_action %}
+			<div><a href="{{ article.get_absolute_url }}"><img src="{% url eshop_show_item_thumb article.id 200 %}"></a>
+				<p>Цена: {{ article.old_price }} грн.</p>
+				<span>Цена: {{ article.price }} грн.</span>
+				<h3><a href="{{ article.get_absolute_url }}">{{ article.name|upper }}</a></h3>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

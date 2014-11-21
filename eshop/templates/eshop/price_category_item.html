@@ -1,0 +1,18 @@
+{% load eshop_tags %}
+
+<dt><a href="{{ category.get_absolute_url }}" >{{ category|upper }}</a></b>
+    {% with category.children.all as subcategories %}
+        {% if subcategories %}
+        <dt>
+            {% for subcategory in subcategories %}
+                {% show_category_item subcategory %}
+            {% endfor %}
+        </dt>
+        {% endif %}
+    {% endwith %}
+    {% for article in category.articles.all %}
+		{% if article.published %}
+        <dd><a href="{{ article.get_absolute_url }}">{{ article|capfirst }}</a><span>{{ article.price }}</span><span class="articul">{{ article.kod_tovara }}</span></dd>
+        {% endif %}
+    {% endfor %}
+</dt>

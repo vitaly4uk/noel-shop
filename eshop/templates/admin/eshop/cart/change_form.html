@@ -1,0 +1,84 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    td.item {
+        width: 60%;
+    }
+    td.price, td.quantity, td.total_price, td.delete {
+        width: 10%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<script type="text/javascript">
+(function($){
+    function check_field(field){
+        var value = parseFloat(field.val());
+        if (isNaN(value) || value < 0)
+            field.parent().addClass("errors")
+        else {
+            field.parent().removeClass("errors");
+            field.val(parseFloat(field.val()));
+        }
+    }
+
+    function load_item_values(field){
+        field = $(field);
+        window.console.log(field.val());
+    }
+
+    $(function(){
+        var i = 0, quantity = 0, price = 0;
+        var sum_quantity = 0, sum_price = 0;
+        while(true) {
+            quantity = $("#id_cartitem_set-" + i + "-quantity");
+            price    = $("#id_cartitem_set-" + i + "-price");
+            quantity = parseFloat(quantity.val());
+            total_price = parseFloat(price.val()) * quantity;
+            if (isNaN(total_price)) break;
+            sum_quantity += quantity;
+            sum_price += total_price;
+            $("#id_cartitem_set-" + i + "-total_price").val(total_price).attr("readonly", "readonly");
+            i += 1;
+        }
+        $("#cartitem_set-group").delegate("input[type=text]", "blur", function(){check_field($(this));});       
+    });
+})(django.jQuery);
+</script>
+{% endblock %}
+
+{% block after_related_objects %}
+<div class="tabular inline-related inline-group">
+    <fieldset class="module">
+    {% for formset in inline_admin_formsets %}
+        {% if forloop.first %}
+            <table>
+            {% for summary_form in formset %}
+                {% if forloop.first %}
+                <tr class="row1 has_original">
+                {% for fieldset in summary_form %}
+                  {% for line in fieldset %}
+                        {% for field in line %}
+                        <td class="{{ field.field.name }}">
+                            {% if field.field.name == 'item' %}<strong>{% trans "total"|capfirst %}</strong>{% endif %}
+                            {% if field.field.name == 'quantity' %}<strong>{{ original.quantity }}</strong>{% endif %}
+                            {% if field.field.name == 'total_price' %}<strong>{{ original.price }}</strong>{% endif %}
+                        </td>
+                        {% endfor %}
+                  {% endfor %}
+                {% endfor %}
+                    <td class="delete"></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% endif %}
+    {% endfor %}
+    </fieldset>
+</div>
+{% endblock %}

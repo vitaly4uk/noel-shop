@@ -1,0 +1,234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Vitaly Omelchuk <vitaly.omelchuk@gmail.com>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-02 09:48+0200\n"
+"PO-Revision-Date: 2011-02-25 10:05+0200\n"
+"Last-Translator: Vitaly Omelchuk <vitaly.omelchuk@gmail.com>\n"
+"Language-Team: RU <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: eshop/admin.py:46
+msgid "Options"
+msgstr ""
+
+#: eshop/forms.py:16 eshop/models.py:99
+msgid "article"
+msgstr ""
+
+#: eshop/forms.py:17 eshop/models.py:116 eshop/templates/eshop/cart.html:11
+msgid "quantity"
+msgstr ""
+
+#: eshop/forms.py:18 eshop/models.py:62 eshop/models.py:117
+#: eshop/templates/eshop/articlecategory_detail.html:16
+#: eshop/templates/eshop/articleitem_detail.html:17
+#: eshop/templates/eshop/cart.html:10 templates/search.html:13
+msgid "price"
+msgstr ""
+
+#: eshop/forms.py:19 eshop/templates/admin/eshop/cart/change_form.html:68
+#: eshop/templates/eshop/cart.html:12 eshop/templates/eshop/cart.html.py:24
+msgid "total"
+msgstr ""
+
+#: eshop/models.py:26 eshop/models.py:55 eshop/models.py:144
+#: eshop/templates/eshop/articlecategory_detail.html:15
+#: eshop/templates/eshop/cart.html:9 main/models.py:11
+#: templates/search.html:12
+msgid "name"
+msgstr ""
+
+#: eshop/models.py:28 eshop/models.py:58
+msgid "image"
+msgstr "изображение"
+
+#: eshop/models.py:29 eshop/models.py:60
+msgid "published"
+msgstr "опубликованно"
+
+#: eshop/models.py:30 eshop/models.py:63 eshop/models.py:146
+msgid "creation date"
+msgstr ""
+
+#: eshop/models.py:31 eshop/models.py:64 eshop/models.py:147
+msgid "modification date"
+msgstr ""
+
+#: eshop/models.py:48
+msgid "category"
+msgstr "категория"
+
+#: eshop/models.py:49
+msgid "categories"
+msgstr "категории"
+
+#: eshop/models.py:57 main/models.py:13
+msgid "description"
+msgstr "описание"
+
+#: eshop/models.py:59
+msgid "url"
+msgstr ""
+
+#: eshop/models.py:61 eshop/templates/eshop/articlecategory_detail.html:17
+#: eshop/templates/eshop/articleitem_detail.html:18 templates/search.html:14
+msgid "order"
+msgstr "номер по порядку"
+
+#: eshop/models.py:65
+msgid "present"
+msgstr ""
+
+#: eshop/models.py:100
+msgid "articles"
+msgstr ""
+
+#: eshop/models.py:105
+msgid "created"
+msgstr ""
+
+#: eshop/models.py:106
+msgid "not paid"
+msgstr ""
+
+#: eshop/models.py:107
+msgid "paid"
+msgstr ""
+
+#: eshop/models.py:108
+msgid "delivared"
+msgstr ""
+
+#: eshop/models.py:109
+msgid "closed"
+msgstr ""
+
+#: eshop/models.py:141
+msgid "status"
+msgstr ""
+
+#: eshop/models.py:143
+msgid "email"
+msgstr ""
+
+#: eshop/models.py:145
+msgid "comment"
+msgstr ""
+
+#: eshop/models.py:195 eshop/models.py:207
+#: eshop/templates/eshop/articlecategory_detail.html:48 templates/base.html:46
+msgid "cart"
+msgstr "заказ"
+
+#: eshop/models.py:208
+msgid "carts"
+msgstr "заказы"
+
+
+#: eshop/widgets.py:39
+msgid "Lookup"
+msgstr ""
+
+#: eshop/templates/eshop/articlecategory_detail.html:19
+#: eshop/templates/eshop/articlecategory_detail.html:32
+#: templates/search.html:15 templates/search.html.py:26
+msgid "add to cart"
+msgstr ""
+
+#: eshop/templates/eshop/articlecategory_detail.html:26
+#: eshop/templates/eshop/articlecategory_detail.html:48
+#: eshop/templates/eshop/articleitem_detail.html:17
+#: eshop/templates/eshop/cart.html:17 eshop/templates/eshop/cart.html.py:19
+#: eshop/templates/eshop/cart.html:26 templates/search.html:21
+msgid "usd"
+msgstr "грн"
+
+#: eshop/templates/eshop/articlecategory_detail.html:28
+#: eshop/templates/eshop/articleitem_detail.html:18 templates/search.html:23
+msgid "months"
+msgstr "мес"
+
+#: eshop/templates/eshop/articlecategory_detail.html:37
+msgid "Sorry, no articles in this category."
+msgstr "Сожалеем, но на данный момент в этой категории товаров нет."
+
+#: eshop/templates/eshop/articleitem_detail.html:25
+#: templates/flatpages/default.html:14
+msgid "Post"
+msgstr ""
+
+#: eshop/templates/eshop/cart.html:29
+msgid "recalculate"
+msgstr "пересчетать"
+
+#: main/admin.py:38
+msgid "Personal info"
+msgstr ""
+
+#: main/admin.py:39
+msgid "Permissions"
+msgstr ""
+
+#: main/admin.py:40
+msgid "Important dates"
+msgstr ""
+
+#: main/admin.py:41
+msgid "Groups"
+msgstr ""
+
+#: main/models.py:12
+msgid "value"
+msgstr "значение"
+
+#: main/models.py:36
+msgid "constant"
+msgstr "константа"
+
+#: main/models.py:37
+msgid "contants"
+msgstr "константы"
+
+#: templates/base.html:38
+msgid "Search"
+msgstr ""
+
+#: templates/base.html:42
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:43
+msgid "notebooks"
+msgstr "ноутбуки"
+
+#: templates/base.html:44
+msgid "guestbook"
+msgstr "гостевая книга"
+
+#: templates/base.html:54
+msgid "Log out"
+msgstr ""
+
+#: templates/base.html:56 templates/registration/login.html:14
+msgid "Log in"
+msgstr ""
+
+#: templates/admin/base_site.html:4
+msgid "Komok site admin"
+msgstr "Администрирование Komok"
+
+#: templates/admin/base_site.html:7
+msgid "Komok site"
+msgstr "Komok сайт"
