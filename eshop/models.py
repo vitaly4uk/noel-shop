@@ -13,7 +13,7 @@ from django.db import models
 from django.contrib.sitemaps import Sitemap
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import (CreationDateTimeField,
-        ModificationDateTimeField, AutoSlugField)
+                                         ModificationDateTimeField, AutoSlugField)
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db.models import Sum
@@ -25,11 +25,7 @@ import tagging
 from tagging.models import Tag
 
 
-
-threadlocal = threading.local()
-
 class ArticleItemManager(models.Manager):
-
     def hot_sale(self):
         return self.get_query_set().filter(main_page=True).order_by("order")
 
@@ -46,17 +42,17 @@ class ArticleItemManager(models.Manager):
 class ArticleCategory(MPTTModel):
     """ Model for article's category."""
 
-    order        = models.PositiveIntegerField(_('order'), default=0, db_column='_order')
-    name         = models.CharField(_('name'), max_length=255, unique=True)
-    slug         = AutoSlugField(_('Slug'), populate_from='name', overwrite=True, editable=True)
-    parent       = TreeForeignKey('self', null=True, blank=True, related_name='children')
-    image        = models.ImageField(_('image'),upload_to="upload", blank=True)
-    description  = models.TextField(_('description'), blank=True)
-    video  	 	 = models.CharField(_('youtube'), max_length=255, blank=True)
-    published    = models.BooleanField(_('published'), default=True)
+    order = models.PositiveIntegerField(_('order'), default=0, db_column='_order')
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', overwrite=True, editable=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
+    image = models.ImageField(_('image'), upload_to="upload", blank=True)
+    description = models.TextField(_('description'), blank=True)
+    video = models.CharField(_('youtube'), max_length=255, blank=True)
+    published = models.BooleanField(_('published'), default=True)
     created_date = CreationDateTimeField(_('creation date'))
     updated_date = ModificationDateTimeField(_('modification date'))
-    logo         = models.URLField(_('logo'), blank=True)
+    logo = models.URLField(_('logo'), blank=True)
 
     def get_children_articles(self):
         """ return queryset of published children articles """
@@ -77,9 +73,9 @@ class ArticleCategory(MPTTModel):
     def get_absolute_url(self):
         """ return object url """
         if self.slug:
-            return ('eshop_category_slug', (), {'slug' : self.slug})
+            return ('eshop_category_slug', (), {'slug': self.slug})
         else:
-            return ('eshop_category', (), {'object_id' : self.pk})
+            return ('eshop_category', (), {'object_id': self.pk})
 
     class Meta:
         verbose_name = _('category')
@@ -90,23 +86,23 @@ class ArticleCategory(MPTTModel):
 class ArticleItem(models.Model):
     """ Model for article """
 
-    order        	= models.PositiveIntegerField(_('order'), default=0, db_column='_order')
-    name         	= models.CharField(_('name'), max_length=255, unique=True)
-    slug         	= AutoSlugField(_('Slug'), populate_from='name', overwrite=True, editable=True)
-    categories     	= TreeManyToManyField(ArticleCategory, null=True, related_name='articles')
-    kod_tovara 	 	= models.CharField(_('kod'), max_length=255)
-    description  	= models.TextField(_('description'))
-    video  	 	 	= models.CharField(_('youtube'), max_length=255, blank=True)
-    image        	= models.ImageField(_('image'),upload_to="upload", blank=True)
-    published    	= models.BooleanField(_('published'), default=True)
-    price        	= models.DecimalField(_('price'), max_digits=10, decimal_places=2)
-    created_date 	= CreationDateTimeField(_('creation date'))
-    updated_date 	= ModificationDateTimeField(_('modification date'))
-    present      	= models.BooleanField(_('present'), default=True)
-    main_page 	 	= models.BooleanField(_('Hot sale'), default=False)
-    new_product	 	= models.BooleanField(_('Slider New'), default=False)
-    action_product	= models.BooleanField(_('Slider Action'), default=False)
-    old_price    	= models.DecimalField(_('old price'), max_digits=10, decimal_places=2, blank=True)
+    order = models.PositiveIntegerField(_('order'), default=0, db_column='_order')
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', overwrite=True, editable=True)
+    categories = TreeManyToManyField(ArticleCategory, null=True, related_name='articles')
+    kod_tovara = models.CharField(_('kod'), max_length=255)
+    description = models.TextField(_('description'))
+    video = models.CharField(_('youtube'), max_length=255, blank=True)
+    image = models.ImageField(_('image'), upload_to="upload", blank=True)
+    published = models.BooleanField(_('published'), default=True)
+    price = models.DecimalField(_('price'), max_digits=10, decimal_places=2)
+    created_date = CreationDateTimeField(_('creation date'))
+    updated_date = ModificationDateTimeField(_('modification date'))
+    present = models.BooleanField(_('present'), default=True)
+    main_page = models.BooleanField(_('Hot sale'), default=False)
+    new_product = models.BooleanField(_('Slider New'), default=False)
+    action_product = models.BooleanField(_('Slider Action'), default=False)
+    old_price = models.DecimalField(_('old price'), max_digits=10, decimal_places=2, blank=True)
 
     objects = ArticleItemManager()
 
@@ -145,9 +141,9 @@ class ArticleItem(models.Model):
     def get_absolute_url(self):
         """ return object url """
         if self.slug:
-            return ('eshop_item_slug', (), {'slug' : self.slug})
+            return ('eshop_item_slug', (), {'slug': self.slug})
         else:
-            return ('eshop_item', (), {'object_id' : self.pk})
+            return ('eshop_item', (), {'object_id': self.pk})
 
     class Meta:
         verbose_name = _('article')
@@ -162,20 +158,20 @@ class ArticleImage(models.Model):
 
 
 CART_STATUS = (
-        (1, _('created')),
-        (2, _('not paid')),
-        (3, _('paid')),
-        (4, _('delivared')),
-        (5, _('closed')),
-        )
+    (1, _('created')),
+    (2, _('not paid')),
+    (3, _('paid')),
+    (4, _('delivared')),
+    (5, _('closed')),
+)
 
 
 class CartItem(models.Model):
     """ article item in cart """
-    cart     = models.ForeignKey('Cart')
-    item     = models.ForeignKey(ArticleItem)
+    cart = models.ForeignKey('Cart')
+    item = models.ForeignKey(ArticleItem)
     quantity = models.PositiveIntegerField(_('quantity'), default=0)
-    price    = models.DecimalField(_('price'), max_digits=10, decimal_places=2)
+    price = models.DecimalField(_('price'), max_digits=10, decimal_places=2)
 
     def get_price(self):
         """ calculate price """
@@ -197,26 +193,19 @@ class CartItem(models.Model):
     class Meta:
         unique_together = ('cart', 'item')
 
+
 class Cart(models.Model):
     """ customers orders """
-    status       = models.PositiveSmallIntegerField(_('status'), choices=CART_STATUS, default=1)
-    user         = models.ForeignKey(User, blank=True, null=True)
-    email        = models.EmailField(_('email'), blank=True)
-    name         = models.CharField(_('name'), blank=True, max_length=127)
-    comment      = models.TextField(_('comment'), blank=True)
+    status = models.PositiveSmallIntegerField(_('status'), choices=CART_STATUS, default=1)
+    user = models.ForeignKey(User, blank=True, null=True)
+    email = models.EmailField(_('email'), blank=True)
+    name = models.CharField(_('name'), blank=True, max_length=127)
+    comment = models.TextField(_('comment'), blank=True)
     created_date = CreationDateTimeField(_('creation date'))
     updated_date = ModificationDateTimeField(_('modification date'))
 
     def clear_cache(self):
-        hash_value = hash(self)
-        if getattr(threadlocal, "%d-quantity" % hash_value, None):
-            delattr(threadlocal, "%d-quantity" % hash_value)
-        if getattr(threadlocal, "%d-price" % hash_value, None):
-            delattr(threadlocal, "%d-price" % hash_value)
-        if getattr(threadlocal, "%d-total-price" % hash_value, None):
-            delattr(threadlocal, "%d-total-price" % hash_value)
-        if getattr(threadlocal, "%d-iter" % hash_value, None):
-            delattr(threadlocal, "%d-iter" % hash_value)
+        pass
 
     def add(self, item, quantity):
         """ add item to cart """
@@ -232,13 +221,10 @@ class Cart(models.Model):
 
     def quantity(self):
         """ count total quantity of cart """
-        quantity = getattr(threadlocal, "%d-quantity" % hash(self), None)
-        if quantity is None:
-            try:
-                quantity = CartItem.objects.filter(cart=self).aggregate(total_quantity=Sum('quantity'))['total_quantity']
-            except IndexError:
-                quantity = 0
-            setattr(threadlocal, "%d-quantity" % hash(self), quantity)
+        try:
+            quantity = CartItem.objects.filter(cart=self).aggregate(total_quantity=Sum('quantity'))['total_quantity']
+        except IndexError:
+            quantity = 0
         if quantity:
             return int(quantity)
         else:
@@ -246,18 +232,12 @@ class Cart(models.Model):
 
     def price(self):
         """ count total cart price """
-        total_price = getattr(threadlocal, "%d-price" % hash(self), None)
-        if total_price is None:
-            total_price = sum(float(item.price)*float(item.quantity) for item in self)
-            setattr(threadlocal, "%d-price" % hash(self), total_price)
+        total_price = sum(float(item.price) * float(item.quantity) for item in self)
         return total_price
 
     def total_price(self):
         """ count total cart price """
-        total_price = getattr(threadlocal, "%d-total-price" % hash(self), None)
-        if total_price is None:
-            total_price = sum(item.get_total_price() for item in self)
-            setattr(threadlocal, "%d-total-price" % hash(self), total_price)
+        total_price = sum(item.get_total_price() for item in self)
         return total_price
 
     def __unicode__(self):
@@ -265,10 +245,7 @@ class Cart(models.Model):
 
     def __iter__(self):
         """ cart items iterator """
-        cartitems = getattr(threadlocal, "%d-iter" % hash(self), None)
-        if cartitems is None:
-            cartitems = list(CartItem.objects.filter(cart=self))
-            setattr(threadlocal, "%d-iter" % hash(self), cartitems)
+        cartitems = list(CartItem.objects.filter(cart=self))
         for item in cartitems:
             yield item
 
@@ -276,7 +253,6 @@ class Cart(models.Model):
         verbose_name = _('cart')
         verbose_name_plural = _('carts')
         ordering = ['-updated_date', '-created_date']
-
 
 
 class ArticleCategorySitemap(Sitemap):
@@ -291,6 +267,7 @@ class ArticleCategorySitemap(Sitemap):
     def lastmod(self, obj):
         return obj.updated_date
 
+
 class ArticleItemSitemap(Sitemap):
     """Sitemap for articles."""
 
@@ -302,5 +279,6 @@ class ArticleItemSitemap(Sitemap):
 
     def lastmod(self, obj):
         return obj.updated_date
+
 
 tagging.register(ArticleItem)
